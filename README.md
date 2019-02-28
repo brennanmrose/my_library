@@ -1,10 +1,3 @@
-# My Library
-
-## Usage
-
-To use this app just clone, run `rake db:migrate` and then run `shotgun`.
-Everything should be set up.
-
 # My Library CMS
 
 Welcome to your library content management system. You can use this app to upload, edit and manage all of the books you own and wish to read. In this directory, you'll find the files you need to run the application on your server. 
@@ -39,7 +32,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/brenna
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Code of Conduct
 
