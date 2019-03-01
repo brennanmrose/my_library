@@ -6,12 +6,11 @@ class UsersController < ApplicationController
 	end
 
 	get '/signup' do 
-		'hello'
-		# if logged_in?
-		# 	redirect '/users/show'
-		# else
-		# 	erb :'users/signup'
-		# end
+		if logged_in?
+			redirect '/users/show'
+		else
+			erb :'users/signup'
+		end
 	end
 
 end
