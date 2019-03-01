@@ -4,4 +4,4 @@ class CreateGenresTable < ActiveRecord::Migration
   		t.string :name
   	end
   end
-end
+end 
