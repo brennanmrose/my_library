@@ -3,13 +3,13 @@
 <form action="/books" method="POST">
   <h4> Book </h4>
   <label> Title: </label>
-  <input type="text" name="book_title" id ="title"></br>
+  <input type="text" name="book[title]" id ="title"></br>
   <br>
   <h4> Author </h4>
   <label> First Name: </label>
-  <input type="text" name="author_first_name" id="Author First Name"> </br>
+  <input type="text" name="[author][first_name]" id="Author First Name"> </br>
   <label> Last Name: </label>
-  <input type="text" name="author_last_name" id="Author Last Name"> </br>
+  <input type="text" name="[author][last_name]" id="Author Last Name"> </br>
   <br>
   <h4> Genre(s) </h4>
   <% Genre.all.each do |genre| %>
