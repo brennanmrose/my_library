@@ -8,4 +8,8 @@ class BooksController < ApplicationController
 		end
 	end
 
+	post '/books' do 
+		binding.pry
+	end
+
 end
