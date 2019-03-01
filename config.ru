@@ -6,5 +6,5 @@ end
 
 use Rack::MethodOverride
 use UsersController
-user BooksController
+use BooksController
 run ApplicationController

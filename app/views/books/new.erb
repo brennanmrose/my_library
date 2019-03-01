@@ -1,0 +1,20 @@
+<h1>Add a New Book to your Collection</h1>
+<br>
+<form action="/books" method="POST">
+  <h4> Book </h4>
+  <label> Title: </label>
+  <input type="text" name="book_title" id ="title"></br>
+  <br>
+  <h4> Author </h4>
+  <label> First Name: </label>
+  <input type="text" name="author_first_name" id="Author First Name"> </br>
+  <label> Last Name: </label>
+  <input type="text" name="author_last_name" id="Author Last Name"> </br>
+  <br>
+  <h4> Genre(s) </h4>
+  <% Genre.all.each do |genre| %>
+    <input type="checkbox" name="genre[]" id="<%= genre.name %>" value="<%= genre.id %>"><%= genre.name %></input><br>
+  <% end %>
+  <br>
+  <input type="submit" value="Create Book">
+</form>
