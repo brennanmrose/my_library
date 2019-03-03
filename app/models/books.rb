@@ -5,8 +5,8 @@ class Book < ActiveRecord::Base
 	has_many :genres, through: :book_genres
 
 	def slug
-		if name.present?
-			name.downcase.gsub(' ', '-') 
+		if title.present?
+			title.downcase.gsub(' ', '-') 
 		end
 	end
 

@@ -25,12 +25,16 @@ class BooksController < ApplicationController
 				@book.genres << @genre
 			end
 			current_user.books << @book
-
-			redirect "/users/#{current_user.slug}"
+binding.pry
+			redirect "/books/#{@book.slug}"
 		else
 			# add flash error message
 			redirect '/books/new'
 		end
+	end
+
+	get '/books/:slug' do
+
 	end
 
 	private
