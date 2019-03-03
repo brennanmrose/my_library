@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
 
+	# new
 	get '/books/new' do 
 		if logged_in?
 			erb :'books/new'
@@ -8,6 +9,7 @@ class BooksController < ApplicationController
 		end
 	end
 
+	# create
 	post '/books' do 
 		if valid_book_params?
 			@book = Book.new(book_params)
@@ -25,7 +27,7 @@ class BooksController < ApplicationController
 				@book.genres << @genre
 			end
 			current_user.books << @book
-binding.pry
+
 			redirect "/books/#{@book.slug}"
 		else
 			# add flash error message
@@ -33,8 +35,10 @@ binding.pry
 		end
 	end
 
+	# show
 	get '/books/:slug' do
-
+		@book = Book.find_by_slug(params[:slug])
+		erb :'books/show'
 	end
 
 	private
