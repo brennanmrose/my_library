@@ -10,16 +10,21 @@ class BooksController < ApplicationController
 
 	post '/books' do 
 		if valid_book_params?
-			@author = Author.create(author_params)
 			@book = Book.new(book_params)
-			@book.author = @author
-			@book.save
-			if params[:genre][:name] != ""
+			if author_id.present?
+				@author = Author.find_by(author_id)
+				@book.author = @author
+				@book.save
+			else
+				@author = Author.create(author_params)
+				@book.author = @author
+				@book.save
+			end
+			if genre_name.present?
 				@genre = Genre.new(genre_params)
 				@book.genres << @genre
 			end
 			current_user.books << @book
-			binding.pry
 
 			redirect "/users/#{current_user.slug}"
 		else
@@ -34,22 +39,40 @@ class BooksController < ApplicationController
 		params[:book]
 	end
 
-	def valid_book_params?
-		params[:book][:title].present? && params[:author][:name].present? && params[:genre].present?
-	end
-
 	def author_params
 		params[:author]
+	end
+
+	def author_id
+		params[:author][:id]
 	end
 
 	def genre_params
 		params[:genre]
 	end
+
+	def genre_name
+		params[:genre][:name]
+	end
+
+	def valid_book_params?
+		params[:book][:title].present? && valid_author_params? && valid_genre_params?
+	end
+
+	def valid_author_params?
+		params[:author][:name].present? || params[:author][:id].present?
+	end
+
+	def valid_genre_params?
+		params[:genre][:name].present? || params[:book][:genre_ids].present?
+	end
+
 end
 
 # Functionality to add:
 
-# - create checkbox for creating author
+# -remove author first_name & last_name from schema
+# - stretch goal is to add way to sort author by last name first
 
 # 	get '/books/:slug' do 
 # 		if logged_in?
