@@ -1,5 +1,13 @@
 class BooksController < ApplicationController
 
+	# index
+	get '/books' do 
+		if logged_in?
+			@books = current_user.books
+			erb :'books/index'
+		end
+	end
+
 	# new
 	get '/books/new' do 
 		if logged_in?

@@ -1,0 +1,13 @@
+<h1>Your Collection:</h1>
+<% @books.each do |book| %>
+  <ol>
+  	<li>
+  	  <%= book.title %>, 
+  	  written by <%= book.author.name %>, 
+  	  <% book.genres.each do |genre| %>
+  	  	<%= genre.name %>
+  	  <% end %>
+  	  <br><br>
+  	</li>
+  </ol>
+<% end %>  
