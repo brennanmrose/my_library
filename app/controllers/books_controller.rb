@@ -34,7 +34,7 @@ class BooksController < ApplicationController
 	end
 
 	def valid_book_params?
-		params[:book][:title].present? && params[:author][:first_name].present? && params[:author][:last_name].present? && params[:genre].present?
+		params[:book][:title].present? && params[:author][:name].present? && params[:genre].present?
 	end
 
 	def author_params
@@ -48,7 +48,7 @@ end
 
 # Functionality to add:
 
-# - don't allow user to duplicate a book, genre or author
+# - create checkbox for creating author
 
 # 	get '/books/:slug' do 
 # 		if logged_in?
