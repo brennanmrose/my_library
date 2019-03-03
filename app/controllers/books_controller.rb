@@ -19,6 +19,7 @@ class BooksController < ApplicationController
 				@book.genres << @genre
 			end
 			current_user.books << @book
+			binding.pry
 
 			redirect "/users/#{current_user.slug}"
 		else

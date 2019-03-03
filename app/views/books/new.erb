@@ -6,7 +6,11 @@
   <input type="text" name="book[title]" id ="title"></br>
   <br>
   <h4> Author </h4>
-  <label> Full Name: </label>
+  <% Author.all.each do |author| %>
+    <input type="checkbox" name="book[author][]" id="<%= author.id %>" value="<%= author.id %>"><%= author.name %></input><br>
+  <% end %>
+  <br>
+  <label>Don't see the author you're looking for? Add a new author:</label>
   <input type="text" name="[author][name]" id="Author Name"> </br>
   <br>
   <h4> Genre(s) </h4>
