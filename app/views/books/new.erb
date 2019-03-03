@@ -13,11 +13,11 @@
   <br>
   <h4> Genre(s) </h4>
   <% Genre.all.each do |genre| %>
-    <input type="checkbox" name="genre[]" id="<%= genre.name %>" value="<%= genre.id %>"><%= genre.name %></input><br>
+    <input type="checkbox" name="book[genre_ids][]" id="<%= genre.id %>" value="<%= genre.id %>"><%= genre.name %></input><br>
   <% end %>
   <br>
   <label>Don't see the genre you're looking for? Add a new genre:</label>
-  <input  type="text" name="genre[]" id="genre_name"></input>
+  <input  type="text" name="genre[name]" id="genre_name"></input>
   <br>
   <input type="submit" value="Create Book">
 </form>
