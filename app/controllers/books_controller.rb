@@ -33,7 +33,6 @@ class BooksController < ApplicationController
 				@author = Author.find_by id: author_id
 				@book.author = @author
 				@book.save
-				binding.pry
 			else
 				@author = Author.create(author_params)
 				@book.author = @author
@@ -132,10 +131,6 @@ class BooksController < ApplicationController
 		params[:genre][:name]
 	end
 
-	def slug
-		params[:slug]
-	end
-
 	def valid_book_params?
 		params[:book][:title].present? && valid_author_params? && valid_genre_params?
 	end
@@ -157,6 +152,11 @@ end
 # - fix index view to ordered list
 # - edit title how to make it big enough for longer title
 # - add edit button to book show page
+# - add links to books show page from books index
+# - add link to books index to add new book
+# - add link on books show to go to index 
+# - (optional) add authors index?
+# - allow user to edit their account info?
 
 # 	get '/books/:slug' do 
 # 		if logged_in?

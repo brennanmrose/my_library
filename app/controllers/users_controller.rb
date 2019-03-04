@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
 
 	get '/users/:slug' do 
-		@user = User.find_by_slug(params[:slug])
-		erb :'users/show'
+		if logged_in?
+			@user = current_user
+			erb :'users/show'
+		else
+			redirect '/signup'
+		end
 	end
 
 	get '/signup' do 
@@ -14,12 +18,13 @@ class UsersController < ApplicationController
 	end
 
 	post '/signup' do 
-		if params[:username].empty? || params[:email].empty? || params[:password].empty?
-			# add flash error message
-			redirect '/signup'
-		else 
+		# if params[:username].empty? || params[:email].empty? || params[:password].empty?
+		if valid_user_params?
 			@user = User.create(username: params[:username], email: params[:email], password: params[:password])
 			redirect '/login'
+		else 
+			# add flash error message
+			redirect '/signup'
 		end
 	end
 
@@ -48,6 +53,12 @@ class UsersController < ApplicationController
 		else
 			redirect '/'
 		end
+	end
+
+	private
+
+	def valid_user_params?
+		params[:username].present? && params[:email].present? && params[:password].present?
 	end
 
 end

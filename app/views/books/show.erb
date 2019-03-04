@@ -11,7 +11,11 @@
 		<% end %>
 	</li>
 </ul>
+<br>
 <form method="POST" action="/books/<%= @book.slug %>">
 	<input id="hidden" type="hidden" name="_method" value="delete">
 	<input type="submit" value="Delete Book">
 </form>
+<br>
+<br>
+<a href="/logout">Log Out</a>
