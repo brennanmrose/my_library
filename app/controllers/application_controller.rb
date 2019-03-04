@@ -23,7 +23,7 @@ class ApplicationController < Sinatra::Base
   	end
 
     def slug
-    params[:slug]
+      params[:slug]
     end
   end
 
