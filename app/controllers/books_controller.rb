@@ -157,7 +157,7 @@ end
 # - add link on books show to go to index 
 # - (optional) add authors index?
 # - allow user to edit their account info?
-# - when adding a new book and selecting an existing genre an new checkbox is created for that genre
+# - when adding a new book and selecting an existing genre or author an new checkbox is created for that genre/author
 
 # 	get '/books/:slug' do 
 # 		if logged_in?
