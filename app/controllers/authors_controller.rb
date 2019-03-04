@@ -9,7 +9,7 @@ class AuthorsController < ApplicationController
 	end
 
 	get '/authors/:slug' do
-		@artist = Artist.find_by_slug(params[:slug])
+		@author = Author.find_by_slug(slug)
 		erb :'authors/show'
 	end
 
