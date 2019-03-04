@@ -20,7 +20,7 @@ class BooksController < ApplicationController
 				end
 			end
 			erb :'books/new'
-		else
+		else 
 			redirect '/login'
 		end
 	end
@@ -30,9 +30,10 @@ class BooksController < ApplicationController
 		if valid_book_params?
 			@book = Book.new(book_params)
 			if author_id.present?
-				@author = Author.find_by(author_id)
+				@author = Author.find_by id: author_id
 				@book.author = @author
 				@book.save
+				binding.pry
 			else
 				@author = Author.create(author_params)
 				@book.author = @author
@@ -73,7 +74,7 @@ class BooksController < ApplicationController
 		if valid_book_params?
 			@book.update(book_params)
 			if author_id.present?
-				@author = Author.find_by(author_id)
+				@author = Author.find_by id: author_id
 				@book.author = @author
 				@book.save
 			else
@@ -155,8 +156,6 @@ end
 # - stretch goal is to add way to sort author by last name first
 # - fix index view to ordered list
 # - edit title how to make it big enough for longer title
-# - update new to only show current users's books
-# - fix paulo coehlo bug
 
 # 	get '/books/:slug' do 
 # 		if logged_in?
