@@ -30,6 +30,7 @@ class BooksController < ApplicationController
 		if valid_book_params?
 			@book = Book.new(book_params)
 			if author_id.present?
+				binding.pry
 				@author = Author.find_by id: author_id
 				@book.author = @author
 				@book.save
@@ -155,7 +156,6 @@ end
 # - add links to books show page from books index
 # - add link to books index to add new book
 # - add link on books show to go to index 
-# - (optional) add authors index?
 # - allow user to edit their account info?
 # - when adding a new book and selecting an existing genre or author an new checkbox is created for that genre/author
 
