@@ -11,6 +11,11 @@ class BooksController < ApplicationController
 	# new
 	get '/books/new' do 
 		if logged_in?
+			binding.pry
+			@authors = []
+			current_user.books.each do |book|
+				@authors << book.author
+			end
 			erb :'books/new'
 		else
 			redirect '/login'
@@ -52,7 +57,11 @@ class BooksController < ApplicationController
 	# edit
 	get '/books/:slug/edit' do 
 		@book = Book.find_by_slug(params[:slug])
-		erb :'books/edit'
+		if @book.user == current_user
+  			erb :'books/edit'
+  	else 
+  		redirect '/books'
+  	end 
 	end
 
 	# update
@@ -81,12 +90,17 @@ class BooksController < ApplicationController
 	delete '/books/:slug' do
 		if logged_in?
 			@book = Book.find_by_slug(params[:slug])
-			@book.delete
-			redirect '/books'
+			if @book.user == current_user
+  			@book.delete
+  			redirect '/books'
+  		else 
+  			redirect '/books'
+  		end 
 		else
 			redirect '/login'
 		end
 	end
+
 
 	private
 
@@ -128,13 +142,14 @@ class BooksController < ApplicationController
 
 end
 
-# Functionality to add:
+# To Update:
 
 # -remove author first_name & last_name from schema
 # - stretch goal is to add way to sort author by last name first
-# - fix index view
+# - fix index view to ordered list
 # - edit title how to make it big enough for longer title
-# update new to only show current users's books
+# - update new to only show current users's books
+# - fix paulo coehlo bug
 
 # 	get '/books/:slug' do 
 # 		if logged_in?
