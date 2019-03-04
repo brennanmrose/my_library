@@ -11,10 +11,13 @@ class BooksController < ApplicationController
 	# new
 	get '/books/new' do 
 		if logged_in?
-			binding.pry
 			@authors = []
+			@genres = []
 			current_user.books.each do |book|
 				@authors << book.author
+				book.genres.each do |genre|
+					@genres << genre
+				end
 			end
 			erb :'books/new'
 		else
@@ -50,13 +53,13 @@ class BooksController < ApplicationController
 
 	# show
 	get '/books/:slug' do
-		@book = Book.find_by_slug(params[:slug])
+		@book = Book.find_by_slug(slug)
 		erb :'books/show'
 	end
 
 	# edit
 	get '/books/:slug/edit' do 
-		@book = Book.find_by_slug(params[:slug])
+		@book = Book.find_by_slug(slug)
 		if @book.user == current_user
   			erb :'books/edit'
   	else 
@@ -66,7 +69,7 @@ class BooksController < ApplicationController
 
 	# update
 	patch '/books/:slug' do 
-		@book = Book.find_by_slug(params[:slug])
+		@book = Book.find_by_slug(slug)
 		if valid_book_params?
 			@book.update(book_params)
 			if author_id.present?
@@ -89,7 +92,7 @@ class BooksController < ApplicationController
 	# delete
 	delete '/books/:slug' do
 		if logged_in?
-			@book = Book.find_by_slug(params[:slug])
+			@book = Book.find_by_slug(slug)
 			if @book.user == current_user
   			@book.delete
   			redirect '/books'
@@ -126,6 +129,10 @@ class BooksController < ApplicationController
 
 	def genre_name
 		params[:genre][:name]
+	end
+
+	def slug
+		params[:slug]
 	end
 
 	def valid_book_params?
