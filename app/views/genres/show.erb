@@ -1,0 +1,15 @@
+<h1><%= @genre.name %></h1>
+<br>
+<label>Books:</label>
+<ol>
+  <% @genre.books.each do |book| %>
+    <li><a href="/books/<%= book.slug %>"><%= book.title %> </a></li>
+  <% end %>
+</ol>
+<br>
+<label>Authors:</label>
+<ol>
+  <% @genre.authors.each do |author| %>
+    <li><a href="/genres/<%= author.slug %>"><%= author.name %> </a></li>
+  <% end %>
+</ol>

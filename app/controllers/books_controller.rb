@@ -145,7 +145,7 @@ class BooksController < ApplicationController
 
 end
 
-# To Update:
+# To Add/fix:
 
 # -remove author first_name & last_name from schema
 # - stretch goal is to add way to sort author by last name first
@@ -157,6 +157,7 @@ end
 # - add link on books show to go to index 
 # - (optional) add authors index?
 # - allow user to edit their account info?
+# - when adding a new book and selecting an existing genre an new checkbox is created for that genre
 
 # 	get '/books/:slug' do 
 # 		if logged_in?
