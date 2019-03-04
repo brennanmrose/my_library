@@ -9,7 +9,7 @@ class Author < ActiveRecord::Base
 	end
 
 	def self.find_by_slug(slug)
-		Author.all.find{ |song| song.slug == slug }
+		Author.all.find{ |author| author.slug == slug }
 	end
 
 end

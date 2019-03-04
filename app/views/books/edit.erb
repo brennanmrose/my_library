@@ -1,0 +1,32 @@
+<h1>Edit "<%= @book.title %>"</h1>
+
+<form action="/books/<%= @book.slug %>" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="PATCH">
+  <br>
+  <label for="Book Title">Title:</label>
+  <input type="text" name="book[title]" id="title" value="<%=@book.title%>">
+  <br>
+  <br>
+  <label for="Author Name">Author:</label>
+  <br>
+  <% Author.all.each do |author| %>
+    <input type="checkbox" name="author[id]" id="<%= author.id %>" value="<%= author.id %>" <%= 'checked' if @book.author == author %>><%= author.name %></input>
+    <br>
+  <% end %>
+  <br>
+  <label>Don't see the author you're looking for? Add a new author:</label>
+  <input type="text" name="[author][name]" id="Author Name"> </br>
+  <br>
+  <br>
+  <label> Genres </label>
+  <br>
+  <% Genre.all.each do |genre| %>
+    <input type="checkbox" name="book[genre_ids][]" id="<%= genre.id %>" value="<%= genre.id %>" <%= 'checked' if @book.genres.include?(genre) %>><%= genre.name %></input>
+    <br>
+  <% end %>
+  <br>
+  <label>Don't see the genre you're looking for? Add a new genre:</label>
+  <input  type="text" name="genre[name]" id="genre_name"></input>
+  <br>
+  <input type="submit" value="Save">
+</form>
