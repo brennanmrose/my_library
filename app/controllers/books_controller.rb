@@ -55,7 +55,7 @@ class BooksController < ApplicationController
 		erb :'books/edit'
 	end
 
-	# patch
+	# update
 	patch '/books/:slug' do 
 		@book = Book.find_by_slug(params[:slug])
 		if valid_book_params?
@@ -76,6 +76,17 @@ class BooksController < ApplicationController
 			redirect "/books/#{@book.slug}" 
 		end
 	end 
+
+	# delete
+	delete '/books/:slug' do
+		if logged_in?
+			@book = Book.find_by_slug(params[:slug])
+			@book.delete
+			redirect '/books'
+		else
+			redirect '/login'
+		end
+	end
 
 	private
 
