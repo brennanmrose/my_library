@@ -156,6 +156,7 @@ end
 # - stretch goal is to add way to sort author by last name first
 # - fix index view to ordered list
 # - edit title how to make it big enough for longer title
+# - add edit button to book show page
 
 # 	get '/books/:slug' do 
 # 		if logged_in?

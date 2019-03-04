@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 
 	get '/login' do 
 		if logged_in?
-			redirect :'users/show'
+			redirect :'books/index'
 		else
 			erb :'users/login'
 		end
