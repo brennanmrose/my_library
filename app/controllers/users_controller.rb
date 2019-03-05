@@ -1,13 +1,5 @@
 class UsersController < ApplicationController
 
-	get '/users/:slug' do 
-		if logged_in?
-			@user = current_user
-			erb :'users/show'
-		else
-			redirect '/signup'
-		end
-	end
 
 	get '/signup' do 
 		if logged_in?
@@ -41,6 +33,16 @@ class UsersController < ApplicationController
 		if @user && @user.authenticate(params[:password])
 			session[:user_id] = @user.id 
 			redirect "/users/#{@user.slug}"
+		else
+			redirect '/signup'
+		end
+	end
+		
+	# show
+	get '/users/:slug' do 
+		if logged_in?
+			@user = current_user
+			erb :'users/show'
 		else
 			redirect '/signup'
 		end

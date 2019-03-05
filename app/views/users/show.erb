@@ -1,1 +1,11 @@
 <h1>Welcome, <%= @user.username %>!</h1>
+<h3>Menu:</h3>
+<br>
+<ol>
+	<li>View your collection of <a href='/books'>books</a></li>
+	<li>View your collection of <a href='/authors'>authors</a></li>
+	<li>View your collection of <a href='/genres'>genres</a></li>
+	<br>
+	<li>Alternatively, you can <a href="/users/<%= @user.slug %>/edit">edit</a> your user</li>
+	<br>
+</ol>
