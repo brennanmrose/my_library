@@ -1,13 +1,14 @@
 <h1>"<%= @book.title %>"</h1>
+<br>
 <ul>
 	<li>
 		<label>Author:</label>
-		<%= @book.author.name %>
+		<a href="/authors/<%= @book.author.slug %>"><%= @book.author.name %></a>
 	</li>
 	<li>
 		<label>Genre(s):</label>
 		<% @book.genres.each do |genre| %>
-			<%= genre.name %>
+			<a href="/genres/<%= genre.slug %>"><%= genre.name %></a>
 		<% end %>
 	</li>
 </ul>
