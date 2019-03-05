@@ -58,7 +58,7 @@ class UsersController < ApplicationController
 
 	patch '/users/:slug' do 
 		if @user = current_user
-			@user.update(params[:user])
+			@user.update(user_params)
 			redirect "/users/#{@user.slug}"
 		end
 	end
@@ -86,6 +86,10 @@ class UsersController < ApplicationController
 
 	def valid_user_params?
 		params[:username].present? && params[:email].present? && params[:password].present?
+	end
+
+	def user_params
+		params[:user]
 	end
 
 end

@@ -15,6 +15,9 @@
 	<br>
 </ol>
 <br>
+<a href="/logout">Log Out</a>
+<br>
+<br>
 <form method="POST" action="/users/<%= @user.slug %>">
 	<input id="hidden" type="hidden" name="_method" value="delete">
 	<input type="submit" value="Delete Account">
