@@ -33,17 +33,18 @@ class BooksController < ApplicationController
 				binding.pry
 				@author = Author.find_by id: author_id
 				@book.author = @author
-				@book.save
+				@book.save 
 			else
 				@author = Author.create(author_params)
 				@book.author = @author
-				@book.save
+				@book.save 
 			end
 			if genre_name.present?
 				@genre = Genre.new(genre_params)
 				@book.genres << @genre
 			end
 			current_user.books << @book
+			current_user.save
 
 			redirect "/books/#{@book.slug}"
 		else
