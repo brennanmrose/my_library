@@ -57,9 +57,20 @@ class UsersController < ApplicationController
 	end
 
 	patch '/users/:slug' do 
-		@user = current_user
-		@user.update(params[:user])
-		redirect "/users/#{@user.slug}"
+		if @user = current_user
+			@user.update(params[:user])
+			redirect "/users/#{@user.slug}"
+		end
+	end
+
+	delete '/users/:slug' do 
+		if logged_in?
+			@user = current_user
+			@user.delete
+			redirect '/signup'
+		else
+			redirect '/login'
+		end
 	end
 
 	get '/logout' do 
