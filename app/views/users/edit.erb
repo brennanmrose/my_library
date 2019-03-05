@@ -1,8 +1,8 @@
 <h2>Update Your User</h2>
 
-<form method="post" action="/users/<%= @user.slug %>">
+<form action="/users/<%= @user.slug %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="PATCH">
-  <label for='username'>Username:</label>
+  <label for="username">Username:</label>
   <br>
   <input type="text" name="username" value="<%= @user.username %>">
   <br>

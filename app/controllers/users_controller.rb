@@ -56,6 +56,11 @@ class UsersController < ApplicationController
 		end
 	end
 
+	patch '/users/:slug/edit' do 
+		@user = current_user
+		binding.pry
+	end
+
 	get '/logout' do 
 		if logged_in?
 			session.clear
