@@ -30,8 +30,7 @@ class BooksController < ApplicationController
 		if valid_book_params?
 			@book = Book.new(book_params)
 			if author_id.present?
-				binding.pry
-				@author = Author.find_by id: author_id
+				@author = Author.find_by(id: author_id)
 				@book.author = @author
 				@book.save 
 			else
@@ -45,7 +44,6 @@ class BooksController < ApplicationController
 			end
 			current_user.books << @book
 			current_user.save
-
 			redirect "/books/#{@book.slug}"
 		else
 			# add flash error message

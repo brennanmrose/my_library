@@ -6,7 +6,7 @@
   <input type="text" name="book[title]" id ="title"></br>
   <br>
   <h4> Author </h4>
-  <% @authors.each do |author| %>
+  <% @authors.uniq.each do |author| %>
     <input type="checkbox" name="author[id]" id="<%= author.id %>" value="<%= author.id %>"><%= author.name %></input><br>
   <% end %>
   <br>
@@ -14,7 +14,7 @@
   <input type="text" name="[author][name]" id="Author Name"> </br>
   <br>
   <h4> Genre(s) </h4>
-  <% @genres.each do |genre| %>
+  <% @genres.uniq.each do |genre| %>
     <input type="checkbox" name="book[genre_ids][]" id="<%= genre.id %>" value="<%= genre.id %>"><%= genre.name %></input><br>
   <% end %>
   <br>

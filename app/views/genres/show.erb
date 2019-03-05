@@ -9,7 +9,7 @@
 <br>
 <label>Authors:</label>
 <ol>
-  <% @genre.authors.each do |author| %>
+  <% @genre.authors.uniq.each do |author| %>
     <li><a href="/genres/<%= author.slug %>"><%= author.name %> </a></li>
   <% end %>
 </ol>
