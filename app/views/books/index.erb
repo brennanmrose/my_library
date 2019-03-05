@@ -1,8 +1,9 @@
 <h1>Your Collection of Books:</h1>
+<br>
 <% @books.each do |book| %>
   <ol>
   	<li>
-  	  "<%= book.title %>", 
+  	  <a href="/books/<%= book.slug %>"><%= book.title %>"</a>, 
   	  written by <%= book.author.name %>, 
   	  <% book.genres.each do |genre| %>
   	  	<%= genre.name %>
@@ -11,3 +12,7 @@
   	</li>
   </ol>
 <% end %>  
+<br>
+<br>
+<br>
+<a href="/logout">Log Out</a>
