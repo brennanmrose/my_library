@@ -1,11 +1,16 @@
 <h1>Welcome, <%= @user.username %>!</h1>
-<h3>Menu:</h3>
 <br>
+<h3>Menu:</h3>
 <ol>
 	<li>View your collection of <a href='/books'>books</a></li>
 	<li>View your collection of <a href='/authors'>authors</a></li>
 	<li>View your collection of <a href='/genres'>genres</a></li>
-	<br>
-	<!-- <li>Alternatively, you can <a href="/users/<%= @user.slug %>/edit">edit</a> your user</li> -->
+</ol>
+<br>
+<h3>Account:</h3>
+<ol>
+	<li>Username: <%= @user.username %></li>
+	<li>Email: <%= @user.email %></li>
+	<li>Edit your user account <a href="/users/<%= @user.slug %>/edit">here</a></li>
 	<br>
 </ol>

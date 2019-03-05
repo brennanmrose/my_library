@@ -56,9 +56,10 @@ class UsersController < ApplicationController
 		end
 	end
 
-	patch '/users/:slug/edit' do 
+	patch '/users/:slug' do 
 		@user = current_user
-		binding.pry
+		@user.update(params[:user])
+		redirect "/users/#{@user.slug}"
 	end
 
 	get '/logout' do 
