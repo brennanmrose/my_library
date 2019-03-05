@@ -47,14 +47,14 @@ class UsersController < ApplicationController
 		end
 	end
 
-	# get '/users/:slug/edit' do 
-	# 	if logged_in?
-	# 		@user = current_user
-	# 		erb :'users/edit'
-	# 	else
-	# 		redirect '/login'
-	# 	end
-	# end
+	get '/users/:slug/edit' do 
+		if logged_in?
+			@user = current_user
+			erb :'users/edit'
+		else
+			redirect '/login'
+		end
+	end
 
 	get '/logout' do 
 		if logged_in?
