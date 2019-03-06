@@ -28,27 +28,31 @@ class BooksController < ApplicationController
 	# create
 	post '/books' do 
 		if valid_book_params?
-			binding.pry
-			@book = Book.new(book_params)
-			if author_id.present?
-				@author = Author.find_by(id: author_id)
-				@book.author = @author
-				@book.save 
+			if find_book_by_title
+				# add flash message stating that book already exists
+				redirect '/books'
+			elsif
+				@book = Book.new(book_params)
+				if author_id.present?
+					@author = Author.find_by(id: author_id)
+					@book.author = @author
+					@book.save 
+				else
+					@author = Author.create(author_params)
+					@book.author = @author
+					@book.save 
+				end
+				if genre_name.present?
+					@genre = Genre.new(genre_params)
+					@book.genres << @genre
+				end
+				current_user.books << @book
+				current_user.save
+				redirect "/books/#{@book.slug}"
 			else
-				@author = Author.create(author_params)
-				@book.author = @author
-				@book.save 
-			end
-			if genre_name.present?
-				@genre = Genre.new(genre_params)
-				@book.genres << @genre
-			end
-			current_user.books << @book
-			current_user.save
-			redirect "/books/#{@book.slug}"
-		else
 			# add flash error message
-			redirect '/books/new'
+				redirect '/books/new'
+			end
 		end
 	end
 
@@ -142,6 +146,10 @@ class BooksController < ApplicationController
 
 	def valid_genre_params?
 		params[:genre][:name].present? || params[:book][:genre_ids].present?
+	end
+
+	def find_book_by_title
+		Book.find_by(title: params[:book][:title])
 	end
 
 end
