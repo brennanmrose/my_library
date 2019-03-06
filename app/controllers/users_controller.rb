@@ -22,7 +22,7 @@ class UsersController < ApplicationController
 		if find_by_username? || find_by_email?
 			redirect '/login'
 		elsif valid_user_params? 
-			@user = User.create(username: params[:username], email: params[:email], password: params[:password])
+			create_user
 			redirect "/users/#{@user.slug}"
 		else 
 			# add flash error message
@@ -91,6 +91,10 @@ class UsersController < ApplicationController
 
 	def find_by_email?
 		!!(User.find_by(email: params[:email]))
+	end
+
+	def create_user
+		@user = User.create(username: params[:username], email: params[:email], password: params[:password])
 	end
 
 end
