@@ -1,4 +1,4 @@
-<h1>"<%= @book.title %>"</h1>
+<h1><%= @book.title %></h1>
 <br>
 <ul>
 	<li>
@@ -14,6 +14,8 @@
 </ul>
 <br>
 <a href="/books/<%= @book.slug %>/edit">Edit "<%= @book.title %>"</a>
+<br>
+<a href='/books'>See your collection</a>
 <br>
 <br>
 <form method="POST" action="/books/<%= @book.slug %>">
