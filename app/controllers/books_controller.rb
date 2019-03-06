@@ -61,10 +61,11 @@ class BooksController < ApplicationController
 	# show
 	get '/books/:slug' do
 		if logged_in? 
-			find_book_by_slug
-			if current_user.books.include?(book)
+			@book = Book.find_by_slug(slug)
+			if @book.user == current_user
 				erb :'books/show'
 			else
+				# flash that book is not in your library, here is your library
 				redirect '/books'
 			end
 		else
@@ -163,7 +164,7 @@ class BooksController < ApplicationController
 	end
 
 	def find_book_by_slug
-		book = Book.find_by_slug(slug)
+		Book.find_by_slug(slug)
 	end
 
 end
