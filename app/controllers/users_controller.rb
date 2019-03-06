@@ -66,16 +66,6 @@ class UsersController < ApplicationController
 		end
 	end
 
-	delete '/users/:slug' do 
-		if logged_in?
-			@user = current_user
-			@user.delete
-			redirect '/signup'
-		else
-			redirect '/login'
-		end
-	end
-
 	get '/logout' do 
 		if logged_in?
 			session.clear

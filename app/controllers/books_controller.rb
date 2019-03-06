@@ -43,8 +43,7 @@ class BooksController < ApplicationController
 				if genre_name.present?
 					create_new_genre
 				end
-				current_user.books << @book
-				current_user.save
+				add_book_to_current_user
 				redirect "/books/#{@book.slug}"
 			else
 			# add flash error message
