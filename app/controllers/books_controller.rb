@@ -28,6 +28,7 @@ class BooksController < ApplicationController
 	# create
 	post '/books' do 
 		if valid_book_params?
+			binding.pry
 			@book = Book.new(book_params)
 			if author_id.present?
 				@author = Author.find_by(id: author_id)
