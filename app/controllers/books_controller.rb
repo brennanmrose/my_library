@@ -30,19 +30,15 @@ class BooksController < ApplicationController
 	# create
 	post '/books' do 
 		if valid_book_params?
-			if find_book_by_title
+			if find_book_by_title.present?
 				# add flash message stating that book already exists
 				redirect '/books'
 			elsif
 				@book = Book.new(book_params)
 				if author_id.present?
-					@author = Author.find_by(id: author_id)
-					@book.author = @author
-					@book.save 
+					add_book_to_existing_author
 				else
-					@author = Author.create(author_params)
-					@book.author = @author
-					@book.save 
+					create_new_author
 				end
 				if genre_name.present?
 					@genre = Genre.new(genre_params)
@@ -89,13 +85,9 @@ class BooksController < ApplicationController
 		if valid_book_params?
 			@book.update(book_params)
 			if author_id.present?
-				@author = Author.find_by id: author_id
-				@book.author = @author
-				@book.save
+				add_book_to_existing_author
 			else
-				@author = Author.create(author_params)
-				@book.author = @author
-				@book.save
+				create_new_author
 			end
 			if genre_name.present?
 				@genre = Genre.new(genre_params)
@@ -169,6 +161,18 @@ class BooksController < ApplicationController
 
 	def valid_user?
 		@book.user == current_user
+	end
+
+	def add_book_to_existing_author
+		@author = Author.find_by(id: author_id)
+		@book.author = @author
+		@book.save 
+	end
+
+	def create_new_author
+		@author = Author.create(author_params)
+		@book.author = @author
+		@book.save 
 	end
 
 end
