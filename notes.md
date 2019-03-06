@@ -8,3 +8,4 @@
 # - can one user delete another user's account? how to verify?
 # - add warning? before allowing user to delete their account, or make them fill out their login creds.... 
 # - optional - allow users to create a book with more than one genre
+# - post '/signup' does not redirect the new user to their slug but rather to login
