@@ -60,8 +60,16 @@ class BooksController < ApplicationController
 
 	# show
 	get '/books/:slug' do
-		@book = Book.find_by_slug(slug)
-		erb :'books/show'
+		if logged_in? 
+			find_book_by_slug
+			if current_user.books.include?(book)
+				erb :'books/show'
+			else
+				redirect '/books'
+			end
+		else
+				redirect '/login'
+		end
 	end
 
 	# edit
@@ -152,6 +160,10 @@ class BooksController < ApplicationController
 
 	def find_book_by_title
 		Book.find_by(title: params[:book][:title])
+	end
+
+	def find_book_by_slug
+		book = Book.find_by_slug(slug)
 	end
 
 end
