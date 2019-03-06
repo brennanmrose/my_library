@@ -62,7 +62,7 @@ class BooksController < ApplicationController
 	get '/books/:slug' do
 		if logged_in? 
 			@book = Book.find_by_slug(slug)
-			if @book.user == current_user
+			if valid_user?
 				erb :'books/show'
 			else
 				# flash that book is not in your library, here is your library
@@ -76,7 +76,7 @@ class BooksController < ApplicationController
 	# edit
 	get '/books/:slug/edit' do 
 		@book = Book.find_by_slug(slug)
-		if @book.user == current_user
+		if valid_user?
   			erb :'books/edit'
   	else 
   		redirect '/books'
@@ -109,7 +109,7 @@ class BooksController < ApplicationController
 	delete '/books/:slug' do
 		if logged_in?
 			@book = Book.find_by_slug(slug)
-			if @book.user == current_user
+			if valid_user?
   			@book.delete
   			redirect '/books'
   		else 
@@ -164,7 +164,11 @@ class BooksController < ApplicationController
 	end
 
 	def find_book_by_slug
-		Book.find_by_slug(slug)
+		@book = Book.find_by_slug(slug)
+	end
+
+	def valid_user?
+		@book.user == current_user
 	end
 
 end
