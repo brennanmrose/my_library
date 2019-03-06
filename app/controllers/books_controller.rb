@@ -41,8 +41,7 @@ class BooksController < ApplicationController
 					create_new_author
 				end
 				if genre_name.present?
-					@genre = Genre.new(genre_params)
-					@book.genres << @genre
+					create_new_genre
 				end
 				current_user.books << @book
 				current_user.save
@@ -90,8 +89,7 @@ class BooksController < ApplicationController
 				create_new_author
 			end
 			if genre_name.present?
-				@genre = Genre.new(genre_params)
-				@book.genres << @genre
+				create_new_genre
 			end
 			redirect "/books/#{@book.slug}" 
 		end
@@ -173,6 +171,16 @@ class BooksController < ApplicationController
 		@author = Author.create(author_params)
 		@book.author = @author
 		@book.save 
+	end
+
+	def create_new_genre
+		@genre = Genre.new(genre_params)
+		@book.genres << @genre
+	end
+
+	def add_book_to_current_user
+		current_user.books << @book
+		current_user.save
 	end
 
 end
