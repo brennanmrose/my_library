@@ -2,8 +2,9 @@
 <br>
 <form action="/books" method="POST">
   <h4> Book </h4>
+  <br>
   <label> Title: </label>
-  <input type="text" name="book[title]" id ="title"></br>
+  <input type="text" name="book[title]" id ="title" size="85"></br>
   <br>
   <h4> Author </h4>
   <% @authors.uniq.each do |author| %>
@@ -20,6 +21,7 @@
   <br>
   <label>Don't see the genre you're looking for? Add a new genre:</label>
   <input  type="text" name="genre[name]" id="genre_name"></input>
+  <br>
   <br>
   <input type="submit" value="Create Book">
 </form>
