@@ -1,5 +1,14 @@
 class UsersController < ApplicationController
 
+	get '/users/:slug' do 
+		if logged_in?
+			@user = current_user
+			erb :'users/show'
+		else
+			redirect '/login'
+		end
+	end
+
 
 	get '/signup' do 
 		if logged_in?
@@ -10,10 +19,11 @@ class UsersController < ApplicationController
 	end
 
 	post '/signup' do 
-		# don't allow users to create dupe account with same name or email
-		if valid_user_params?
-			@user = User.create(username: params[:username], email: params[:email], password: params[:password])
+		if find_by_username? || find_by_email?
 			redirect '/login'
+		elsif valid_user_params? 
+			@user = User.create(username: params[:username], email: params[:email], password: params[:password])
+			redirect "/users/#{@user.slug}"
 		else 
 			# add flash error message
 			redirect '/signup'
@@ -34,18 +44,11 @@ class UsersController < ApplicationController
 			session[:user_id] = @user.id 
 			redirect "/users/#{@user.slug}"
 		else
+			# add flash saying they need to sign up first
 			redirect '/signup'
 		end
 	end
 		
-	get '/users/:slug' do 
-		if logged_in?
-			@user = current_user
-			erb :'users/show'
-		else
-			redirect '/login'
-		end
-	end
 
 	get '/users/:slug/edit' do 
 		if logged_in?
@@ -90,6 +93,14 @@ class UsersController < ApplicationController
 
 	def user_params
 		params[:user]
+	end
+
+	def find_by_username?
+		!!(User.find_by(username: params[:username]))
+	end
+
+	def find_by_email?
+		!!(User.find_by(email: params[:email]))
 	end
 
 end
