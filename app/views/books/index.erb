@@ -3,7 +3,7 @@
 <ol>
 <% @books.each do |book| %>
   	<li>
-  	  <a href="/books/<%= book.slug %>"><%= book.title %>"</a>, 
+  	  <a href="/books/<%= book.slug %>">"<%= book.title %>"</a>, 
   	  written by <%= book.author.name %>, 
   	  <% book.genres.each do |genre| %>
   	  	<%= genre.name %>
