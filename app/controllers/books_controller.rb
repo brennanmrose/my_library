@@ -30,7 +30,7 @@ class BooksController < ApplicationController
 	# create
 	post '/books' do 
 		if valid_book_params?
-			if find_book_by_title.present?
+			if find_book_by_title?
 				# add flash message stating that book already exists
 				redirect '/books'
 			elsif
@@ -148,8 +148,8 @@ class BooksController < ApplicationController
 		params[:genre][:name].present? || params[:book][:genre_ids].present?
 	end
 
-	def find_book_by_title
-		Book.find_by(title: params[:book][:title])
+	def find_book_by_title?
+		!!(Book.find_by(title: params[:book][:title]))
 	end
 
 	def find_book_by_slug
