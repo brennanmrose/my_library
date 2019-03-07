@@ -49,8 +49,8 @@ class UsersController < ApplicationController
 			session[:user_id] = @user.id 
 			redirect "/users/#{@user.slug}"
 		else
-			# add flash saying they need to sign up first
-			redirect '/signup'
+			# add flash saying their creds were invalid and they need to reenter them or sign up
+			redirect '/login'
 		end
 	end
 		
