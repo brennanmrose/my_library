@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
 
 	get '/users/:slug' do 
-		if logged_in?
-			@user = current_user
-			erb :'users/show'
+		@user = current_user
+		if logged_in? && valid_user_account?
+				erb :'users/show'
+		elsif 
+			logged_in? && !valid_user_account?
+				# flash message this is not your acccount, redirecting to your account
+				redirect "/users/#{@user.slug}"
 		else
 			redirect '/login'
 		end
@@ -12,6 +16,7 @@ class UsersController < ApplicationController
 
 	get '/signup' do 
 		if logged_in?
+			@user = current_user
 			redirect "/users/#{@user.slug}"
 		else
 			erb :'users/signup'
@@ -21,8 +26,9 @@ class UsersController < ApplicationController
 	post '/signup' do 
 		if find_by_username? || find_by_email?
 			redirect '/login'
-		elsif valid_user_params? 
-			create_user
+		elsif 
+			valid_user_params? 
+			@user = User.create(user_params)
 			redirect "/users/#{@user.slug}"
 		else 
 			# add flash error message
@@ -31,7 +37,7 @@ class UsersController < ApplicationController
 	end
 
 	get '/login' do 
-		if logged_in?
+		if logged_in? && valid_user?
 			redirect :'books/index'
 		else
 			erb :'users/login'
@@ -51,34 +57,53 @@ class UsersController < ApplicationController
 		
 
 	get '/users/:slug/edit' do 
-		if logged_in?
-			@user = current_user
+		@user = current_user
+		if logged_in? && valid_user_account?
 			erb :'users/edit'
+		elsif 
+			logged_in? && !valid_user_account?
+				# add flash you must be logged in and this is your account
+				redirect "/users/#{@user.slug}"
 		else
 			redirect '/login'
 		end
 	end
 
 	patch '/users/:slug' do 
-		if @user = current_user
+		if valid_user_params? && valid_user?
+			@user = current_user
 			@user.update(user_params)
 			redirect "/users/#{@user.slug}"
+		else
+			redirect "/users/#{@user.slug}/edit"
 		end
 	end
 
 	get '/logout' do 
-		if logged_in?
+		if logged_in? && valid_user?
 			session.clear
 			redirect '/login'
+		elsif 
+			logged_in? && !valid_user?
+			redirect "/users/#{@user.slug}"
 		else
-			redirect '/'
+			redirect'/login'
 		end
 	end
 
 	private
 
 	def valid_user_params?
-		params[:username].present? && params[:email].present? && params[:password].present?
+		params[:user][:username].present? && params[:user][:email].present? && params[:user][:password].present?
+		# params[:username].present? && params[:email].present? && params[:password].present?
+	end
+
+	def valid_user?
+		session[:user_id] == current_user.id
+	end
+
+	def valid_user_account?
+		current_user.slug == params[:slug]
 	end
 
 	def user_params
@@ -86,15 +111,11 @@ class UsersController < ApplicationController
 	end
 
 	def find_by_username?
-		!!(User.find_by(username: params[:username]))
+		!!(User.find_by(username: params[:user][:username]))
 	end
 
 	def find_by_email?
-		!!(User.find_by(email: params[:email]))
-	end
-
-	def create_user
-		@user = User.create(username: params[:username], email: params[:email], password: params[:password])
+		!!(User.find_by(email: params[:user][:email]))
 	end
 
 end
