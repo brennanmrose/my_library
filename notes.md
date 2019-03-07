@@ -4,3 +4,4 @@
 
 # Issues to Fix:
 # - post '/signup' does not redirect the new user to their slug but rather to login
+# - change landing page to redirect to a welcome page that prompts user to sign up or log in 
