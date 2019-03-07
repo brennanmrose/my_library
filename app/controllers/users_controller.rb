@@ -25,9 +25,9 @@ class UsersController < ApplicationController
 	post '/signup' do 
 		if find_by_username? || find_by_email?
 			redirect '/login'
-		elsif 
-			valid_user_params? 
+		elsif valid_user_params? 
 			@user = User.create(user_params)
+			session[:user_id] = @user.id 
 			redirect "/users/#{@user.slug}"
 		else 
 			# add flash error message
