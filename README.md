@@ -30,4 +30,4 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 ## Code of Conduct
 
-Everyone interacting in the BikeSale project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/brennanmrose/my_library/blob/master/CODE_OF_CONDUCT.md). 
+Everyone interacting in the MyLibrary project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/brennanmrose/my_library/blob/master/CODE_OF_CONDUCT.md). 
