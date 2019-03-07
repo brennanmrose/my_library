@@ -4,3 +4,5 @@
 
 # Issues to Fix:
 # - post '/signup' does not redirect the new user to their slug but rather to login
+# - remove extra files
+# - update '/' to redirect to books index
