@@ -13,7 +13,6 @@ class UsersController < ApplicationController
 		end
 	end
 
-
 	get '/signup' do 
 		if logged_in?
 			@user = current_user
@@ -55,7 +54,6 @@ class UsersController < ApplicationController
 		end
 	end
 		
-
 	get '/users/:slug/edit' do 
 		@user = current_user
 		if logged_in? && valid_user_account?
@@ -95,7 +93,6 @@ class UsersController < ApplicationController
 
 	def valid_user_params?
 		params[:user][:username].present? && params[:user][:email].present? && params[:user][:password].present?
-		# params[:username].present? && params[:email].present? && params[:password].present?
 	end
 
 	def valid_user?
