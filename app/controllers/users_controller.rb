@@ -1,8 +1,4 @@
-require 'sinatra'
-require 'sinatra/flash'
-
 class UsersController < ApplicationController
-	register Sinatra::Flash
 
 	get '/users/:slug' do 
 		@user = current_user
