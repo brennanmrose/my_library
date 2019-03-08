@@ -9,5 +9,4 @@ use UsersController
 use AuthorsController
 use GenresController
 use BooksController
-use Rack::Flash
 run ApplicationController

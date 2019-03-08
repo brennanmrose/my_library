@@ -1,4 +1,8 @@
+require 'sinatra'
+require 'sinatra/flash'
+
 class UsersController < ApplicationController
+	register Sinatra::Flash
 
 	get '/users/:slug' do 
 		@user = current_user
@@ -6,6 +10,7 @@ class UsersController < ApplicationController
 				erb :'users/show'
 		elsif 
 			logged_in? && !valid_user_account?
+				flash[:message] = "Invalid user account, redirecting to your account"
 				# flash message this is not your acccount, redirecting to your account
 				redirect "/users/#{@user.slug}"
 		else
