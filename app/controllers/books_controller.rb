@@ -43,7 +43,7 @@ class BooksController < ApplicationController
 				if genre_name.present?
 					find_or_create_genre
 				end
-				add_book_to_current_user
+				@current_user.books << @book
 				redirect "/books/#{@book.slug}"
 			else
 			# add flash error message
@@ -54,6 +54,7 @@ class BooksController < ApplicationController
 
 	# show
 	get '/books/:slug' do
+		binding.pry
 		if logged_in? 
 			@book = Book.find_by_slug(slug)
 			if valid_user?
@@ -178,11 +179,6 @@ class BooksController < ApplicationController
 		if !(@book.genres.include?(@genre))
 			@book.genres << @genre
 		end
-	end
-
-	def add_book_to_current_user
-		current_user.books << @book
-		current_user.save
 	end
 
 end
