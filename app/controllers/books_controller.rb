@@ -169,9 +169,7 @@ class BooksController < ApplicationController
 	end
 
 	def find_or_create_author
-		@author = Author.find_or_create_by(author_params)
-		@book.author = @author
-		@book.save 
+		@author = current_user.authors.find_or_create_by(author_params)
 	end
 
 	def find_or_create_genre
