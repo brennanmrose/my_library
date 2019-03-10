@@ -80,15 +80,16 @@ class BooksController < ApplicationController
 	# update
 	patch '/books/:slug' do 
 		@book = Book.find_by_slug(slug)
+		binding.pry
 		if valid_book_params?
 			@book.update(book_params)
 			if author_id.present?
 				add_book_to_existing_author
 			else
-				create_new_author
+				find_or_create_author
 			end
 			if genre_name.present?
-				create_new_genre
+				find_or_create_genre
 			end
 			redirect "/books/#{@book.slug}" 
 		end
@@ -174,7 +175,9 @@ class BooksController < ApplicationController
 
 	def find_or_create_genre
 		@genre = Genre.find_or_create_by(genre_params)
-		@book.genres << @genre
+		if !(@book.genres.include?(@genre))
+			@book.genres << @genre
+		end
 	end
 
 	def add_book_to_current_user
