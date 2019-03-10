@@ -54,9 +54,8 @@ class BooksController < ApplicationController
 
 	# show
 	get '/books/:slug' do
-		binding.pry
 		if logged_in? 
-			@book = Book.find_by_slug(slug)
+			find_book_by_slug
 			if valid_user?
 				erb :'books/show'
 			else
@@ -155,7 +154,8 @@ class BooksController < ApplicationController
 	end
 
 	def find_book_by_slug
-		@book = Book.find_by_slug(slug)
+		@books = @current_user.books
+		@book = @books.find_by_slug(slug)
 	end
 
 	def valid_user?
