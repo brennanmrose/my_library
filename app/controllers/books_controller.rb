@@ -149,8 +149,7 @@ class BooksController < ApplicationController
 	end
 
 	def find_book_by_title?
-		@book = Book.find_by(title: params[:book][:title])
-		current_user.books.include?(@book)
+		!!(current_user.books.find_by(title: params[:book][:title]))
 	end
 
 	def find_book_by_slug
