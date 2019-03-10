@@ -13,14 +13,6 @@ class BooksController < ApplicationController
 	# new
 	get '/books/new' do 
 		if logged_in?
-			@authors = []
-			@genres = []
-			current_user.books.each do |book|
-				@authors << book.author
-				book.genres.each do |genre|
-					@genres << genre
-				end
-			end
 			erb :'books/new'
 		else 
 			redirect '/login'
