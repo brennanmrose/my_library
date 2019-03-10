@@ -80,7 +80,6 @@ class BooksController < ApplicationController
 	# update
 	patch '/books/:slug' do 
 		@book = Book.find_by_slug(slug)
-		binding.pry
 		if valid_book_params?
 			@book.update(book_params)
 			if author_id.present?
