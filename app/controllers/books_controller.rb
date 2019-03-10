@@ -30,7 +30,6 @@ class BooksController < ApplicationController
 	# create
 	post '/books' do 
 		if valid_book_params?
-			binding.pry
 			if find_book_by_title?
 				# add flash message stating that book already exists
 				redirect '/books'
