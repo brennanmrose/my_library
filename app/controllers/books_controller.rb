@@ -38,10 +38,10 @@ class BooksController < ApplicationController
 				if author_id.present?
 					add_book_to_existing_author
 				else
-					create_new_author
+					find_or_create_author
 				end
 				if genre_name.present?
-					create_new_genre
+					find_or_create_genre
 				end
 				add_book_to_current_user
 				redirect "/books/#{@book.slug}"
@@ -166,14 +166,14 @@ class BooksController < ApplicationController
 		@book.save 
 	end
 
-	def create_new_author
-		@author = Author.create(author_params)
+	def find_or_create_author
+		@author = Author.find_or_create_by(author_params)
 		@book.author = @author
 		@book.save 
 	end
 
-	def create_new_genre
-		@genre = Genre.new(genre_params)
+	def find_or_create_genre
+		@genre = Genre.find_or_create_by(genre_params)
 		@book.genres << @genre
 	end
 
