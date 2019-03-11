@@ -35,12 +35,12 @@ class BooksController < ApplicationController
 				if genre_name.present?
 					find_or_create_genre
 				end
-				@current_user.books << @book
-				redirect "/books/#{@book.slug}"
-			else
-			# add flash error message
-				redirect '/books/new'
+			@current_user.books << @book
+			redirect "/books/#{@book.slug}"
 			end
+		else
+			# add flash error message
+			redirect '/books/new'
 		end
 	end
 
