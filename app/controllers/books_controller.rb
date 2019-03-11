@@ -22,7 +22,7 @@ class BooksController < ApplicationController
 	post '/books' do 
 		if valid_book_params?
 			if find_book_by_title?
-				# add flash message stating that book already exists
+				flash[:message] = "This title already exists in your collection"
 				redirect '/books'
 			elsif
 				@book = Book.new(book_params)
@@ -38,7 +38,6 @@ class BooksController < ApplicationController
 			redirect "/books/#{@book.slug}"
 			end
 		else
-			# add flash error message
 			redirect '/books/new'
 		end
 	end
@@ -50,7 +49,6 @@ class BooksController < ApplicationController
 			if valid_user?
 				erb :'books/show'
 			else
-				# flash that book is not in your library, here is your library
 				redirect '/books'
 			end
 		else
@@ -83,7 +81,6 @@ class BooksController < ApplicationController
 			end
 			redirect "/books/#{@book.slug}" 
 		else
-			# flash message invalid book params
 			redirect "/books/#{@book.slug}/edit"
 		end
 	end 

@@ -6,8 +6,6 @@ class UsersController < ApplicationController
 				erb :'users/show'
 		elsif 
 			logged_in? && !valid_user_account?
-				flash[:message] = "Invalid user account, redirecting to your account"
-				# flash message this is not your acccount, redirecting to your account
 				redirect "/users/#{@user.slug}"
 		else
 			redirect '/login'
@@ -31,7 +29,6 @@ class UsersController < ApplicationController
 			session[:user_id] = @user.id 
 			redirect "/users/#{@user.slug}"
 		else 
-			# add flash error message
 			redirect '/signup'
 		end
 	end
@@ -50,7 +47,6 @@ class UsersController < ApplicationController
 			session[:user_id] = @user.id 
 			redirect "/users/#{@user.slug}"
 		else
-			# add flash saying their creds were invalid and they need to reenter them or sign up
 			redirect '/login'
 		end
 	end
@@ -61,7 +57,6 @@ class UsersController < ApplicationController
 			erb :'users/edit'
 		elsif 
 			logged_in? && !valid_user_account?
-				# add flash you must be logged in and this is your account
 				redirect "/users/#{@user.slug}"
 		else
 			redirect '/login'
