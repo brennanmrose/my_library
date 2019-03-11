@@ -22,7 +22,6 @@ class BooksController < ApplicationController
 	post '/books' do 
 		if valid_book_params?
 			if find_book_by_title?
-				flash[:message] = "This title already exists in your collection"
 				redirect '/books'
 			elsif
 				@book = Book.new(book_params)
