@@ -2,10 +2,6 @@ class AuthorsController < ApplicationController
 
 	get '/authors' do
 		if logged_in?
-			@authors = []
-			current_user.books.each do |book|
-				@authors << book.author
-			end
 			erb :'authors/index'
 		else
 			redirect '/login'

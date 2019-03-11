@@ -1,6 +1,6 @@
 <h1>Your Collection of Authors</h1>
 <ol>
-	<% @authors.uniq.each do |author| %>
+	<% current_user.authors.uniq.each do |author| %>
 		<li><a href="/authors/<%= author.slug %>"><%= author.name %></a></li>
 	<% end %>
 </ol>
