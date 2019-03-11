@@ -2,12 +2,6 @@ class GenresController < ApplicationController
 
 	get '/genres' do 
 		if logged_in?
-			@genres = []
-			current_user.books.each do |book|
-				book.genres.each do |genre|
-					@genres << genre
-				end
-			end
 			erb :'genres/index'
 		else
 			redirect '/login'

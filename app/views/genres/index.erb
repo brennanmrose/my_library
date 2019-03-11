@@ -1,6 +1,6 @@
 <h1>Your Collection of Genres</h1>
 <ol>
-	<% @genres.uniq.each do |genre| %>
+	<% current_user.genres.uniq.each do |genre| %>
 		<li><a href="/genres/<%= genre.slug %>"><%= genre.name %></a></li>
 	<% end %>
 </ol>
