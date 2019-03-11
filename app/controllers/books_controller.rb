@@ -107,10 +107,6 @@ class BooksController < ApplicationController
 		params[:book]
 	end
 
-	def book_id
-		params[:book][:id]
-	end
-
 	def author_params
 		params[:author]
 	end
