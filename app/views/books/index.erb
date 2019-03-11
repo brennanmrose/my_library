@@ -1,7 +1,7 @@
 <h1>Your Collection of Books:</h1>
 <br>
 <ol>
-<% @books.each do |book| %>
+<% current_user.books.each do |book| %>
   	<li>
   	  <a href="/books/<%= book.slug %>"><%= book.title %></a>, 
   	  written by <%= book.author.name %>, 
