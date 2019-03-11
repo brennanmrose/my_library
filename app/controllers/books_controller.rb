@@ -46,7 +46,7 @@ class BooksController < ApplicationController
 	# show
 	get '/books/:slug' do
 		if logged_in? 
-			find_book_by_slug
+			@book = current_user.books.find_by_slug(slug)
 			if valid_user?
 				erb :'books/show'
 			else
@@ -60,7 +60,7 @@ class BooksController < ApplicationController
 
 	# edit
 	get '/books/:slug/edit' do 
-		@book = Book.find_by_slug(slug)
+		@book = current_user.books.find_by_slug(slug)
 		if valid_user?
   			erb :'books/edit'
   	else 
@@ -70,7 +70,7 @@ class BooksController < ApplicationController
 
 	# update
 	patch '/books/:slug' do 
-		@book = Book.find_by_slug(slug)
+		@book = current_user.books.find_by_slug(slug)
 		if valid_book_params?
 			@book.update(book_params)
 			if author_id.present?
@@ -91,7 +91,7 @@ class BooksController < ApplicationController
 	# delete
 	delete '/books/:slug' do
 		if logged_in?
-			@book = Book.find_by_slug(slug)
+			@book = current_user.books.find_by_slug(slug)
 			if valid_user?
   			@book.delete
   			redirect '/books'
@@ -140,11 +140,6 @@ class BooksController < ApplicationController
 
 	def find_book_by_title?
   	!!(current_user.books.find_by(title: params[:book][:title]))
-	end
-
-	def find_book_by_slug
-		@books = @current_user.books
-		@book = @books.find_by_slug(slug)
 	end
 
 	def valid_user?
