@@ -9,7 +9,7 @@
   <br>
   <label for="Author Name">Author:</label>
   <br>
-  <% current_user.authors.each do |author| %>
+  <% current_user.authors.uniq.each do |author| %>
     <input type="checkbox" name="author[id]" id="<%= author.id %>" value="<%= author.id %>" <%= 'checked' if @book.author == author %>><%= author.name %></input>
     <br>
   <% end %>
@@ -20,7 +20,7 @@
   <br>
   <label> Genres </label>
   <br>
-  <% current_user.genres.each do |genre| %>
+  <% current_user.genres.uniq.each do |genre| %>
     <input type="checkbox" name="book[genre_ids][]" id="<%= genre.id %>" value="<%= genre.id %>" <%= 'checked' if @book.genres.include?(genre) %>><%= genre.name %></input>
     <br>
   <% end %>
