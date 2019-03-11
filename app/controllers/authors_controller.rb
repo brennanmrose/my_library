@@ -10,7 +10,7 @@ class AuthorsController < ApplicationController
 
 	get '/authors/:slug' do
 		if logged_in?
-			@author = Author.find_by_slug(slug)
+			@author = current_user.authors.find_by_slug(slug)
 			erb :'authors/show'
 		else
 			redirect '/login'
