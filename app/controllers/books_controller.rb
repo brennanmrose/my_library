@@ -82,6 +82,9 @@ class BooksController < ApplicationController
 				find_or_create_genre
 			end
 			redirect "/books/#{@book.slug}" 
+		else
+			# flash message invalid book params
+			redirect "/books/#{@book.slug}/edit"
 		end
 	end 
 
