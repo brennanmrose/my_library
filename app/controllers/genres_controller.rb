@@ -10,7 +10,7 @@ class GenresController < ApplicationController
 
 	get '/genres/:slug' do
 		if logged_in?
-			@genre = Genre.find_by_slug(slug)
+			@genre = current_user.genres.find_by_slug(slug)
 			erb :'genres/show'
 		else
 			redirect '/login'
