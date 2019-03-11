@@ -170,10 +170,18 @@ class BooksController < ApplicationController
 	end
 
 	def find_or_create_genre
-		@genre = Genre.find_or_create_by(genre_params)
-		if !(@book.genres.include?(@genre))
+		@genre = current_user.genres.find_by(name: params[:genre][:name])
+		if @genre.present? && current_user.genres.include?(@genre)
+			@book.genres << @genre
+		else
+			@genre = Genre.create(genre_params)
 			@book.genres << @genre
 		end
+	
+		# @genre = Genre.find_or_create_by(genre_params)
+		# if !(@book.genres.include?(@genre))
+		# 	@book.genres << @genre
+		# end
 	end
 
 end
