@@ -160,13 +160,15 @@ class BooksController < ApplicationController
 	end
 
 	def find_or_create_author
-		if current_user.authors.include?(params[:author][:name])
-      @author = current_user.authors.find_by_name(params[:author][:name])
+    @author = current_user.authors.find_by_name(params[:author][:name])
+		if @author.present? && current_user.authors.include?(@author)
+			@book.author = @author
+			@book.save
     else 
       @author = Author.create(author_params)
+      @book.author = @author
+    	@book.save
     end
-    @book.author = @author
-    @book.save
 	end
 
 	def find_or_create_genre
